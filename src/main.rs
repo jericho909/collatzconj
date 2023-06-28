@@ -8,6 +8,7 @@ fn main() {
 
     //create a hash map to store the results
     let mut results = HashMap::new();
+    let mut max_value = HashMap::new();
 
     loop {
         println!("Please enter a positive integer:");
@@ -38,6 +39,8 @@ fn main() {
         println!("Beginning the calculations.");
 
         let mut counter: i32 = 0;
+
+        let mut number_max = number_original.clone();
         
         // Begin the main calcution loop
         while number != 1 {
@@ -50,13 +53,18 @@ fn main() {
                 println!("The number is odd, tripling it and adding one.");
                 println!("{:8} -->", number);
             }
+
+            if number > number_max {
+                number_max = number.clone();
+            }
             
             counter += 1;
         }
 
-        println!("The calculations took {} steps.", counter);
+        println!("The calculations took {} steps, and reached a max value of {}.", counter, number_max);
         
         results.insert(number_original, counter);
+        max_value.insert(number_original, number_max);
         
 
 
@@ -81,7 +89,7 @@ fn main() {
                     break;
                 }
                 "r" => {
-                    show_results(&results);
+                    show_results(&results, &max_value);
                 }
                 
                 _ => {
@@ -94,8 +102,11 @@ fn main() {
 
 }
 
-fn show_results (results: &HashMap<i64, i32>) {
+fn show_results (results: &HashMap<i64, i32>, max_value: &HashMap<i64, i64>) {
     for (k, v) in results {
-        println!("The number {k} took {v} calculations to reach 1 and therefore did not disprove the Collatz Conjecture.")
+        println!("The number {k} took {v} calculations to reach 1 and therefore did not disprove the Collatz Conjecture.");
+        let max_token = max_value.get(&k).copied().unwrap_or(0);
+        println!("The number {k} reached a max value of {max_token}.");
     }
+    
 }
