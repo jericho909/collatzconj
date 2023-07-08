@@ -18,7 +18,7 @@ fn main() {
             .expect("Failed to read line");
 
         // Parse the input string into an integer
-        let mut number: i64 = match input.trim().parse() {
+        let mut number: i128 = match input.trim().parse() {
             Ok(n) => n,
             Err(_) => {
                 println!("Invalid input. Please enter a valid integer.");
@@ -102,7 +102,7 @@ fn main() {
 
 }
 
-fn show_results (results: &HashMap<i64, i32>, max_value: &HashMap<i64, i64>) {
+fn show_results (results: &HashMap<i128, i32>, max_value: &HashMap<i128, i128>) {
     for (k, v) in results {
         println!("The number {k} took {v} calculations to reach 1 and therefore did not disprove the Collatz Conjecture.");
         let max_token = max_value.get(&k).copied().unwrap_or(0);
